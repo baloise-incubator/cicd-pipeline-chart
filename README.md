@@ -1,2 +1,2 @@
 # cicd-pipeline-chart
-Helm Chart to provide a CI/CD Container Build Pipelines using Tekton
+Helm Chart to provide a CI/CD Container Build Pipeline using Tekton
