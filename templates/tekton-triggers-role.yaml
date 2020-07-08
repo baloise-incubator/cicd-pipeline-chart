@@ -1,0 +1,29 @@
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: tekton-triggers
+rules:
+  - apiGroups:
+      - tekton.dev
+    resources:
+      - eventlisteners
+      - triggerbindings
+      - triggertemplates
+      - pipelineresources
+    verbs:
+      - get
+  - apiGroups:
+      - tekton.dev
+    resources:
+      - pipelineruns
+      - pipelineresources
+    verbs:
+      - create
+  - apiGroups:
+      -
+    resources:
+      - configmaps
+    verbs:
+      - get
+      - list
+      - watch

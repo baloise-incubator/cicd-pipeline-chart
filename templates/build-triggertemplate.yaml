@@ -1,0 +1,49 @@
+apiVersion: tekton.dev/v1alpha1
+kind: TriggerTemplate
+metadata:
+  name: build
+spec:
+  params:
+    - name: git-revision
+      description: The git revision
+      default: master
+    - name: git-repo-url
+      description: The git repository url
+    - name: git-repo-name
+      description: The name of the deployment to be created / patched
+  resourcetemplates:
+    - apiVersion: tekton.dev/v1alpha1
+      kind: PipelineResource
+      metadata:
+        name: source-repo-$(params.git-repo-name)-$(uid)
+      spec:
+        type: git
+        params:
+          - name: revision
+            value: $(params.git-revision)
+          - name: url
+            value: $(params.git-repo-url)
+    - apiVersion: tekton.dev/v1alpha1
+      kind: PipelineResource
+      metadata:
+        name: image-source-$(params.git-repo-name)-$(uid)
+      spec:
+        type: image
+        params:
+          - name: url
+            value: registry.baloise.dev/example/gitops-nginx-demo:$(params.git-revision)
+    - apiVersion: tekton.dev/v1alpha1
+      kind: PipelineRun
+      metadata:
+        name: gitops-nginx-demo-pipeline-$(params.git-repo-name)-$(uid)
+      spec:
+        pipelineRef:
+          name: build-and-push
+        serviceAccountName: harbor-sa
+        resources:
+          - name: repo
+            resourceRef:
+              name: source-repo-$(params.git-repo-name)-$(uid)
+          - name: image
+            resourceRef:
+              name: image-source-$(params.git-repo-name)-$(uid)

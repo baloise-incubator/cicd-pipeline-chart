@@ -1,0 +1,11 @@
+apiVersion: tekton.dev/v1alpha1
+kind: EventListener
+metadata:
+  name: build-webhook
+spec:
+  serviceAccountName: tekton-triggers
+  triggers:
+    - binding:
+        ref: build-params
+      template:
+        name: build
