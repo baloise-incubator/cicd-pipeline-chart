@@ -6,10 +6,15 @@ rules:
   - apiGroups:
       - tekton.dev
     resources:
+      - pipelineresources
+    verbs:
+      - get
+  - apiGroups:
+      - triggers.tekton.dev
+    resources:
       - eventlisteners
       - triggerbindings
       - triggertemplates
-      - pipelineresources
     verbs:
       - get
   - apiGroups:

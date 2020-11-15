@@ -3,28 +3,27 @@ kind: Task
 metadata:
   name: buildah-docker-format
 spec:
-  inputs:
-    params:
-      - name: BUILDER_IMAGE
-        description: The location of the buildah builder image.
-        default: quay.io/buildah/stable:v1.14.8
-      - name: DOCKERFILE
-        description: Path to the Dockerfile to build.
-        default: ./Dockerfile
-      - name: CONTEXT
-        description: Path to the directory to use as context.
-        default: .
-      - name: TLSVERIFY
-        description: Verify the TLS on the registry endpoint (for push/pull to a non-TLS registry)
-        default: "true"
-      - name: FORMAT
-        description: the format of the built container, oci or docker
-        default: "oci"
-    resources:
+  params:
+    - name: BUILDER_IMAGE
+      description: The location of the buildah builder image.
+      default: quay.io/buildah/stable:v1.14.8
+    - name: DOCKERFILE
+      description: Path to the Dockerfile to build.
+      default: ./Dockerfile
+    - name: CONTEXT
+      description: Path to the directory to use as context.
+      default: .
+    - name: TLSVERIFY
+      description: Verify the TLS on the registry endpoint (for push/pull to a non-TLS registry)
+      default: "true"
+    - name: FORMAT
+      description: the format of the built container, oci or docker
+      default: "oci"
+  resources:
+    inputs:
       - name: source
         type: git
-  outputs:
-    resources:
+    outputs:
       - name: image
         type: image
   steps:

@@ -1,4 +1,4 @@
-apiVersion: tekton.dev/v1alpha1
+apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
   name: build
@@ -38,8 +38,8 @@ spec:
         name: gitops-nginx-demo-pipeline-$(params.git-repo-name)-$(uid)
       spec:
         pipelineRef:
-          name: build-and-push
-        serviceAccountName: harbor-sa
+          name: build
+        serviceAccountName: tekton-builder
         resources:
           - name: repo
             resourceRef:

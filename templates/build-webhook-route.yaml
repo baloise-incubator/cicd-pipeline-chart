@@ -11,5 +11,5 @@ spec:
     targetPort: 8080
   to:
     kind: Service
-    name: el-gitops-demo-listener
+    name: el-build-webhook
     weight: 100
