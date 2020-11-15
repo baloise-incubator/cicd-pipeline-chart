@@ -1,7 +1,7 @@
 apiVersion: triggers.tekton.dev/v1alpha1
 kind: TriggerTemplate
 metadata:
-  name: build
+  name: {{ .Release.Name }}-build
 spec:
   params:
     - name: git-revision
@@ -35,11 +35,11 @@ spec:
     - apiVersion: tekton.dev/v1alpha1
       kind: PipelineRun
       metadata:
-        name: gitops-nginx-demo-pipeline-$(params.git-repo-name)-$(uid)
+        name: {{ .Release.Name }}--$(params.git-repo-name)-$(uid)
       spec:
         pipelineRef:
-          name: build
-        serviceAccountName: tekton-builder
+          name: {{ .Release.Name }}-build
+        serviceAccountName: {{ .Release.Name }}-tekton-builder
         resources:
           - name: repo
             resourceRef:

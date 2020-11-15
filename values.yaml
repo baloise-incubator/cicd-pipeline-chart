@@ -1,0 +1,4 @@
+gitRepoUrl: https://github.com/baloise-incubator/gitops-nginx-demo
+image:
+  registry: registry.baloise.dev
+  repository: example/gitops-nginx-demo
